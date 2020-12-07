@@ -5,40 +5,39 @@ import com.contatos.revisao.presenter.state.InclusaoManterPresenter;
 import com.contatos.revisao.presenter.state.ManterPresenterState;
 import com.contatos.revisao.presenter.state.VisualizacaoManterPresenter;
 import com.contatos.revisao.service.ContatoService;
+import com.contatos.revisao.view.ConsultarContatosView;
 import com.contatos.revisao.view.ManterContatoView;
+import javax.swing.JDesktopPane;
 
 /**
  *
  * @author clayton
  */
-public class ManterContatoPresenter {
+public class ManterContatoPresenter extends BaseInternalFramePresenter<ManterContatoView> {
 
-    private final ManterContatoView view;
     private ManterPresenterState state;
     private Contato contato;
     private final ContatoService contatoService;
-    
-     public ManterContatoPresenter(ContatoService contatoService) {
+
+    public ManterContatoPresenter(ContatoService contatoService, JDesktopPane desktop) {
+        super(desktop, new ManterContatoView());
+        ManterContatoView view = getView();
+
         this.contato = new Contato();
-        this.view = new ManterContatoView();
         this.contatoService = new ContatoService();
         this.setState(new InclusaoManterPresenter(this, this.contatoService));
-        this.view.setVisible(true);
+        view.setVisible(true);
     }
-    
-    public ManterContatoPresenter(Contato contato, ContatoService contatoService) {
-        if(contato == null) {
+
+    public ManterContatoPresenter(Contato contato, ContatoService contatoService, JDesktopPane desktop) {
+        super(desktop, new ManterContatoView());
+        if (contato == null) {
             throw new RuntimeException("Contato não informado");
         }
         this.contato = contato;
-        this.view = new ManterContatoView();
         this.contatoService = new ContatoService();
         this.setState(new VisualizacaoManterPresenter(this, this.contatoService));
-        this.view.setVisible(true);
-    }
-
-    public ManterContatoView getView() {
-        return view;
+        getView().setVisible(true);
     }
 
     public ManterPresenterState getState() {
@@ -48,8 +47,6 @@ public class ManterContatoPresenter {
     public Contato getContato() {
         return contato;
     }
-    
-    
 
 //    private void fechar() {
 //        view.dispose();
@@ -68,7 +65,6 @@ public class ManterContatoPresenter {
 //                "Salvo com sucesso",
 //                JOptionPane.INFORMATION_MESSAGE);
 //    }
-
     public void setState(ManterPresenterState state) {
         this.state = state;
     }
