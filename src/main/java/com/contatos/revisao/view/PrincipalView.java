@@ -5,11 +5,14 @@
  */
 package com.contatos.revisao.view;
 
-import com.contatos.revisao.collection.ContatoCollection;
 import com.contatos.revisao.presenter.ConsultarContatosPresenter;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
 import com.contatos.revisao.service.ContatoService;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 /**
  *
@@ -20,13 +23,11 @@ public class PrincipalView extends JFrame {
     /**
      * Creates new form Principal
      */
-    private ContatoCollection contatos;
 
     public PrincipalView() {
         initComponents();
 
         setState(JFrame.ICONIFIED);
-        contatos = new ContatoCollection();
         this.setLocationRelativeTo(this.getParent());
         this.setExtendedState(MAXIMIZED_BOTH);
 
@@ -43,33 +44,34 @@ public class PrincipalView extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        desktop = new javax.swing.JDesktopPane();
         mbPrincipal = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuOpcoes = new javax.swing.JMenu();
+        itemIncluirContatos = new javax.swing.JMenuItem();
+        itemConsultarContatos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestão de Contatos");
 
-        jMenu1.setText("Opções");
+        menuOpcoes.setText("Opções");
 
-        jMenuItem1.setText("Incluir contatos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itemIncluirContatos.setText("Incluir contatos");
+        itemIncluirContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itemIncluirContatosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem1);
+        menuOpcoes.add(itemIncluirContatos);
 
-        jMenuItem2.setText("Consultar contatos");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        itemConsultarContatos.setText("Consultar contatos");
+        itemConsultarContatos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                itemConsultarContatosActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        menuOpcoes.add(itemConsultarContatos);
 
-        mbPrincipal.add(jMenu1);
+        mbPrincipal.add(menuOpcoes);
 
         setJMenuBar(mbPrincipal);
 
@@ -77,34 +79,57 @@ public class PrincipalView extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 739, Short.MAX_VALUE)
+            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 368, Short.MAX_VALUE)
+            .addComponent(desktop, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        new ConsultarContatosPresenter(contatos);
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void itemConsultarContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultarContatosActionPerformed
+        new ConsultarContatosPresenter(getDesktop());
+    }//GEN-LAST:event_itemConsultarContatosActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void itemIncluirContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIncluirContatosActionPerformed
 
-        new ManterContatoPresenter(new ContatoService());
+        new ManterContatoPresenter(new ContatoService(), getDesktop());
 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_itemIncluirContatosActionPerformed
 
+    
+    
     /**
      * @param args the command line arguments
      */
 
+    public JDesktopPane getDesktop() {
+        return desktop;
+    }
+
+    public JMenuItem getItemConsultarContatos() {
+        return itemConsultarContatos;
+    }
+
+    public JMenuItem getItemIncluirContatos() {
+        return itemIncluirContatos;
+    }
+
+    public JMenuBar getMbPrincipal() {
+        return mbPrincipal;
+    }
+
+    public JMenu getMenuOpcoes() {
+        return menuOpcoes;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JDesktopPane desktop;
+    private javax.swing.JMenuItem itemConsultarContatos;
+    private javax.swing.JMenuItem itemIncluirContatos;
     private javax.swing.JMenuBar mbPrincipal;
+    private javax.swing.JMenu menuOpcoes;
     // End of variables declaration//GEN-END:variables
 }
