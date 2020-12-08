@@ -1,14 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contatos.revisao.command;
 
-/**
- *
- * @author rborges
- */
-public class IncluirContatoCommand {
+import com.contatos.revisao.model.Contato;
+import com.contatos.revisao.service.ContatoService;
+import javax.swing.JOptionPane;
+
+public class IncluirContatoCommand extends ContatoCommand {
+    
+    public IncluirContatoCommand(Contato contato, ContatoService service) {
+        super(contato, service);
+    }
+
+    @Override
+    public void executar() {
+        if (valido()) {
+            try {
+                service.insert(contato);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    @Override
+    public boolean valido() {
+        if (contato == null || contato.getId() != null) {
+            JOptionPane.showMessageDialog(null, "Contato inválido para inserção", "Erro", JOptionPane.ERROR_MESSAGE);
+            return false;
+        } else if (contato.getNome() == null || contato.getNome().isBlank()) {
+            JOptionPane.showMessageDialog(null, "O contato deve possuir o campo nome preenchido", "Erro", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        } else if (contato.getTelefone() == null || contato.getTelefone().isBlank()) {
+            JOptionPane.showMessageDialog(null, "O contato deve possuir o campo telefone preenchido", "Erro", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        
+        return true;
+    }
     
 }

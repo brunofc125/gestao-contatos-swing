@@ -7,10 +7,6 @@ import javax.swing.JDesktopPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author clayton
- */
 public class ConsultarContatosPresenter extends BaseInternalFramePresenter<ConsultarContatosView> {
 
     private DefaultTableModel tmContatos;
@@ -27,13 +23,8 @@ public class ConsultarContatosPresenter extends BaseInternalFramePresenter<Consu
         view.getTblContatos().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         tmContatos.setNumRows(0);
-        //ListIterator<Contato> it = contatos.getContatos().listIterator();
-
-        /*while (it.hasNext()) {
-            Contato contato = it.next();
-            tmContatos.addRow(new Object[]{contato.getNome(), contato.getTelefone()});
-        }*/
         view.getTblContatos().setModel(tmContatos);
+        
         Contato c = new Contato("Bruno", "28999564397");
         view.getBtnVisualizar().addActionListener((ae) -> {
             new ManterContatoPresenter(c, new ContatoService(), desktop);
@@ -44,7 +35,6 @@ public class ConsultarContatosPresenter extends BaseInternalFramePresenter<Consu
         });
 
         view.setVisible(true);
-
     }
 
     private void fechar() {

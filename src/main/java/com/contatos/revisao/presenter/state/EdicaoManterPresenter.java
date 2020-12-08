@@ -1,22 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contatos.revisao.presenter.state;
 
+import com.contatos.revisao.command.EditarContatoCommand;
 import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
 import com.contatos.revisao.service.ContatoService;
 
-/**
- *
- * @author bruno
- */
 public class EdicaoManterPresenter extends ManterPresenterState {
     
-    public EdicaoManterPresenter(ManterContatoPresenter presenter, ContatoService contatoService) {
-        super(presenter, contatoService);
+    public EdicaoManterPresenter(ManterContatoPresenter presenter) {
+        super(presenter);
         init();
     }
     
@@ -34,14 +26,9 @@ public class EdicaoManterPresenter extends ManterPresenterState {
     @Override
     public void salvar() {
         Contato contato = getDados();
-        validate(contato);
-        //salvar
-        presenter.setState(new EdicaoManterPresenter(presenter, contatoService));
-    }
-    
-    
-    private void validate(Contato contato) {
-        // validar insercao
+        presenter.setCommand(new EditarContatoCommand(contato, new ContatoService()));
+        presenter.getCommand().executar();
+        presenter.setState(new VisualizacaoManterPresenter(presenter));
     }
     
 }

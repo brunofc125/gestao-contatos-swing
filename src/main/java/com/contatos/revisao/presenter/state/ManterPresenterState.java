@@ -1,27 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contatos.revisao.presenter.state;
 
 import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
 import com.contatos.revisao.service.ContatoService;
 
-/**
- *
- * @author bruno
- */
 public abstract class ManterPresenterState {
-
     
     protected ManterContatoPresenter presenter;
     protected ContatoService contatoService;
     
-    public ManterPresenterState(ManterContatoPresenter presenter, ContatoService contatoService) {
+    public ManterPresenterState(ManterContatoPresenter presenter) {
         this.presenter = presenter;
-        this.contatoService = contatoService;
     }
     
     public void salvar() {

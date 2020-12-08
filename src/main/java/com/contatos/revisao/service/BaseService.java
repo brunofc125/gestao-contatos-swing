@@ -10,7 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
-public class BaseService<T, I> {
+public abstract class BaseService<T, I> {
 
     public T insert(T source, Class<T> clazz) throws Exception {
         URL url = new URL("https://gestao-contatos-pss.herokuapp.com/gestao-contatos/contatos");
