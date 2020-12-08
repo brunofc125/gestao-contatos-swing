@@ -4,6 +4,8 @@ import com.contatos.revisao.command.ExcluirContatoCommand;
 import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
 import com.contatos.revisao.service.ContatoService;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 
 public class VisualizacaoManterPresenter extends ManterPresenterState {
     
@@ -16,9 +18,32 @@ public class VisualizacaoManterPresenter extends ManterPresenterState {
         setDados(contato);
         disableCampos();
         presenter.getView().getBtnSalvar().setText("Habilitar Edição");
+        presenter.getView().getBtnExcluir().setVisible(true);
+        
+        JButton btnSalvar = presenter.getView().getBtnSalvar();
+        JButton btnExcluir = presenter.getView().getBtnExcluir();
+        JButton btnFechar = presenter.getView().getBtnFechar();
+        
+        for(ActionListener ae : btnSalvar.getActionListeners()) {
+            btnSalvar.removeActionListener(ae);
+        }
+        
+        for(ActionListener ae : btnExcluir.getActionListeners()) {
+            btnExcluir.removeActionListener(ae);
+        }
+        
+        for(ActionListener ae : btnFechar.getActionListeners()) {
+            btnFechar.removeActionListener(ae);
+        }
+        
         presenter.getView().getBtnSalvar().addActionListener((ae) -> {
             editar();
         });
+        
+        presenter.getView().getBtnExcluir().addActionListener((ae) -> {
+            excluir();
+        });
+        
         presenter.getView().getBtnFechar().addActionListener((ae) -> {
             cancelar();
         });
@@ -28,8 +53,9 @@ public class VisualizacaoManterPresenter extends ManterPresenterState {
     public void excluir() {
         Contato contato = getDados();
         presenter.setCommand(new ExcluirContatoCommand(contato, new ContatoService()));
-        presenter.getCommand().executar();
-        cancelar();
+        if (presenter.getCommand().executar()) {
+            cancelar();
+        }
     }
     
     @Override

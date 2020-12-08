@@ -11,14 +11,18 @@ public class ExcluirContatoCommand extends ContatoCommand {
     }
     
     @Override
-    public void executar() {
+    public boolean executar() {
         if (valido()) {
             try {
                 service.delete(contato.getId());
+                JOptionPane.showMessageDialog(null, "Contato excluído com sucesso", "Sucesso", JOptionPane.OK_OPTION);
+                return true;
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
             }
         }
+        
+        return false;
     }
 
     @Override

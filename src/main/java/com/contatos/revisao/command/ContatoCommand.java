@@ -21,7 +21,7 @@ public abstract class ContatoCommand {
         this.service = service;
     }
     
-    public abstract void executar();
+    public abstract boolean executar();
     public abstract boolean valido();
     
 }

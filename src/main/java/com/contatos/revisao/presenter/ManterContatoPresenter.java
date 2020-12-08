@@ -5,14 +5,17 @@ import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.presenter.state.InclusaoManterPresenter;
 import com.contatos.revisao.presenter.state.ManterPresenterState;
 import com.contatos.revisao.presenter.state.VisualizacaoManterPresenter;
+import com.contatos.revisao.service.ContatoService;
 import com.contatos.revisao.view.ManterContatoView;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 
 public class ManterContatoPresenter extends BaseInternalFramePresenter<ManterContatoView> {
 
     private ManterPresenterState state;
     private Contato contato;
     private ContatoCommand command;
+    private ContatoService contatoService;
 
     public ManterContatoPresenter(JDesktopPane desktop) {
         super(desktop, new ManterContatoView());
@@ -28,8 +31,16 @@ public class ManterContatoPresenter extends BaseInternalFramePresenter<ManterCon
         if (contato == null) {
             throw new RuntimeException("Contato não informado");
         }
-        this.contato = contato;
-        this.setState(new VisualizacaoManterPresenter(this));
+        
+        this.contatoService = new ContatoService();
+        
+        try {
+            this.contato = contatoService.get(contato.getId());
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        this.setState(new VisualizacaoManterPresenter(this, this.contato));
         getView().setVisible(true);
     }
 

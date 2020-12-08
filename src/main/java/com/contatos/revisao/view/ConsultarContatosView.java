@@ -49,6 +49,8 @@ public class ConsultarContatosView extends javax.swing.JInternalFrame {
 
             }
         ));
+        tblContatos.setEditingColumn(0);
+        tblContatos.setEditingRow(0);
         scrContatos.setViewportView(tblContatos);
 
         btnFechar.setText("Fechar");
