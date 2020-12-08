@@ -5,7 +5,6 @@ import com.contatos.revisao.presenter.state.InclusaoManterPresenter;
 import com.contatos.revisao.presenter.state.ManterPresenterState;
 import com.contatos.revisao.presenter.state.VisualizacaoManterPresenter;
 import com.contatos.revisao.service.ContatoService;
-import com.contatos.revisao.view.ConsultarContatosView;
 import com.contatos.revisao.view.ManterContatoView;
 import javax.swing.JDesktopPane;
 
@@ -13,7 +12,7 @@ import javax.swing.JDesktopPane;
  *
  * @author clayton
  */
-public class ManterContatoPresenter extends BaseInternalFramePresenter<ManterContatoView> {
+public final class ManterContatoPresenter extends BaseInternalFramePresenter<ManterContatoView> {
 
     private ManterPresenterState state;
     private Contato contato;
@@ -36,7 +35,7 @@ public class ManterContatoPresenter extends BaseInternalFramePresenter<ManterCon
         }
         this.contato = contato;
         this.contatoService = new ContatoService();
-        this.setState(new VisualizacaoManterPresenter(this, this.contatoService));
+        this.setState(new VisualizacaoManterPresenter(this, this.contatoService, contato));
         getView().setVisible(true);
     }
 
