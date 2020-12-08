@@ -5,6 +5,7 @@
  */
 package com.contatos.revisao.presenter.state;
 
+import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
 import com.contatos.revisao.service.ContatoService;
 
@@ -14,14 +15,15 @@ import com.contatos.revisao.service.ContatoService;
  */
 public class VisualizacaoManterPresenter extends ManterPresenterState {
     
-    public VisualizacaoManterPresenter(ManterContatoPresenter presenter, ContatoService contatoService) {
+    public VisualizacaoManterPresenter(ManterContatoPresenter presenter, ContatoService contatoService, Contato contato) {
         super(presenter, contatoService);
-        init();
+        init(contato);
     }
     
-    private void init() {
+    private void init(Contato contato) {
+        setDados(contato);
         disableCampos();
-        presenter.getView().getBtnSalvar().setText("Editar");
+        presenter.getView().getBtnSalvar().setText("Habilitar Edição");
         presenter.getView().getBtnSalvar().addActionListener((ae) -> {
             editar();
         });

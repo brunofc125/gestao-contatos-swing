@@ -1,8 +1,8 @@
 package com.contatos.revisao.presenter;
 
+import com.contatos.revisao.model.Contato;
+import com.contatos.revisao.service.ContatoService;
 import com.contatos.revisao.view.ConsultarContatosView;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JDesktopPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -12,12 +12,13 @@ import javax.swing.table.DefaultTableModel;
  * @author clayton
  */
 public class ConsultarContatosPresenter extends BaseInternalFramePresenter<ConsultarContatosView> {
+
     private DefaultTableModel tmContatos;
 
     public ConsultarContatosPresenter(JDesktopPane desktop) {
         super(desktop, new ConsultarContatosView());
         ConsultarContatosView view = getView();
-        
+
         tmContatos = new DefaultTableModel(
                 new Object[][]{},
                 new String[]{"Nome", "Telefone"}
@@ -32,17 +33,16 @@ public class ConsultarContatosPresenter extends BaseInternalFramePresenter<Consu
             Contato contato = it.next();
             tmContatos.addRow(new Object[]{contato.getNome(), contato.getTelefone()});
         }*/
-
         view.getTblContatos().setModel(tmContatos);
-
-        view.getBtnFechar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                fechar();
-            }
+        Contato c = new Contato("Bruno", "28999564397");
+        view.getBtnVisualizar().addActionListener((ae) -> {
+            new ManterContatoPresenter(c, new ContatoService(), desktop);
         });
 
-      
+        view.getBtnFechar().addActionListener((ae) -> {
+            fechar();
+        });
+
         view.setVisible(true);
 
     }
