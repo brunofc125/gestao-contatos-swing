@@ -1,22 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contatos.revisao.view;
 
-import com.contatos.revisao.presenter.ConsultarContatosPresenter;
-import com.contatos.revisao.presenter.ManterContatoPresenter;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-/**
- *
- * @author clayton
- */
 public class PrincipalView extends JFrame {
 
     /**
@@ -89,12 +78,10 @@ public class PrincipalView extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void itemConsultarContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemConsultarContatosActionPerformed
-        new ConsultarContatosPresenter(getDesktop());
+
     }//GEN-LAST:event_itemConsultarContatosActionPerformed
 
     private void itemIncluirContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIncluirContatosActionPerformed
-
-        new ManterContatoPresenter(getDesktop());
 
     }//GEN-LAST:event_itemIncluirContatosActionPerformed
 

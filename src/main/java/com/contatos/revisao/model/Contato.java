@@ -1,9 +1,5 @@
 package com.contatos.revisao.model;
 
-/**
- *
- * @author clayton
- */
 public class Contato {
 
     private Long id;
@@ -41,9 +37,5 @@ public class Contato {
     public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
-
-   
-    
-    
 
 }
