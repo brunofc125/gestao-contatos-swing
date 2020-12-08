@@ -6,23 +6,20 @@
 package com.contatos.revisao.view;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 /**
  *
- * @author clayton
+ * @author bruno
  */
-public class ConsultarContatosView extends javax.swing.JFrame {
+public class ConsultarContatosView extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ConsultarContatosView
+     * Creates new form ConsultarContatosView2
      */
     public ConsultarContatosView() {
         initComponents();
-        this.setLocationRelativeTo(this.getParent());
-        this.setExtendedState(JFrame.NORMAL);
     }
 
     /**
@@ -34,15 +31,12 @@ public class ConsultarContatosView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        cbOrdenarTelefone = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        scrContatos = new javax.swing.JScrollPane();
         tblContatos = new javax.swing.JTable();
         btnFechar = new javax.swing.JButton();
+        btnVisualizar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Consultar contatos");
-
-        cbOrdenarTelefone.setText("Ordenar por telefone");
+        setClosable(true);
 
         tblContatos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -55,60 +49,64 @@ public class ConsultarContatosView extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tblContatos);
+        scrContatos.setViewportView(tblContatos);
 
         btnFechar.setText("Fechar");
+
+        btnVisualizar.setText("Visualizar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cbOrdenarTelefone)
-                .addGap(28, 28, 28))
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnFechar)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(scrContatos, javax.swing.GroupLayout.PREFERRED_SIZE, 538, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnFechar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnVisualizar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(cbOrdenarTelefone)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrContatos, javax.swing.GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFechar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnFechar)
+                    .addComponent(btnVisualizar))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFechar;
-    private javax.swing.JCheckBox cbOrdenarTelefone;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblContatos;
-    // End of variables declaration//GEN-END:variables
-
     public JButton getBtnFechar() {
         return btnFechar;
     }
 
-    public JCheckBox getCbOrdenarTelefone() {
-        return cbOrdenarTelefone;
+    public JButton getBtnVisualizar() {
+        return btnVisualizar;
+    }
+
+    public JScrollPane getScrContatos() {
+        return scrContatos;
     }
 
     public JTable getTblContatos() {
         return tblContatos;
     }
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFechar;
+    private javax.swing.JButton btnVisualizar;
+    private javax.swing.JScrollPane scrContatos;
+    private javax.swing.JTable tblContatos;
+    // End of variables declaration//GEN-END:variables
 }
