@@ -1,14 +1,16 @@
 package com.contatos.revisao.presenter;
 
-import com.contatos.revisao.view.PrincipalView;
+import com.contatos.revisao.service.ContatoService;
 
-/**
- *
- * @author clayton
- */
 public class PrincipalPresenter {
 
     public static void main(String[] args) {
-        new PrincipalView();
+        ContatoService cs = new ContatoService();
+        
+        try {
+            cs.delete(6L);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
