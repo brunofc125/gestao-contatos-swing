@@ -43,6 +43,7 @@ public class InclusaoManterPresenter extends ManterPresenterState {
         Contato contato = getDados();
         presenter.setCommand(new IncluirContatoCommand(contato, new ContatoService()));
         if (presenter.getCommand().executar()) {
+            presenter.notifyObservers();
             cancelar();
         }
     }

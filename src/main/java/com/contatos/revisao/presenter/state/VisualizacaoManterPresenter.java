@@ -54,6 +54,7 @@ public class VisualizacaoManterPresenter extends ManterPresenterState {
         Contato contato = getDados();
         presenter.setCommand(new ExcluirContatoCommand(contato, new ContatoService()));
         if (presenter.getCommand().executar()) {
+            presenter.notifyObservers();
             cancelar();
         }
     }

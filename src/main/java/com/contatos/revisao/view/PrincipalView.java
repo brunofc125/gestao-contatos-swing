@@ -7,7 +7,6 @@ package com.contatos.revisao.view;
 
 import com.contatos.revisao.presenter.ConsultarContatosPresenter;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
-import com.contatos.revisao.service.ContatoService;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JMenu;

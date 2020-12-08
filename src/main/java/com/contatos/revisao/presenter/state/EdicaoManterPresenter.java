@@ -39,6 +39,7 @@ public class EdicaoManterPresenter extends ManterPresenterState {
         Contato contato = getDados();
         presenter.setCommand(new EditarContatoCommand(contato, new ContatoService()));
         if(presenter.getCommand().executar()) {
+            presenter.notifyObservers();
             presenter.setState(new VisualizacaoManterPresenter(presenter, contato));
         }
     }
