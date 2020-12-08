@@ -1,31 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.contatos.revisao.presenter.state;
 
+import com.contatos.revisao.command.EditarContatoCommand;
 import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.presenter.ManterContatoPresenter;
 import com.contatos.revisao.service.ContatoService;
+import java.awt.event.ActionListener;
 
-/**
- *
- * @author bruno
- */
 public class EdicaoManterPresenter extends ManterPresenterState {
     
-    public EdicaoManterPresenter(ManterContatoPresenter presenter, ContatoService contatoService) {
-        super(presenter, contatoService);
+    public EdicaoManterPresenter(ManterContatoPresenter presenter) {
+        super(presenter);
         init();
     }
     
     private void init() {
         presenter.getView().getBtnExcluir().setVisible(false);
         presenter.getView().getBtnSalvar().setText("Salvar");
+        
+        for(ActionListener ae : presenter.getView().getBtnSalvar().getActionListeners()) {
+           presenter.getView().getBtnSalvar().removeActionListener(ae);
+        }
+        
+        for(ActionListener ae : presenter.getView().getBtnFechar().getActionListeners()) {
+            presenter.getView().getBtnFechar().removeActionListener(ae);
+        }
+         
         presenter.getView().getBtnSalvar().addActionListener((ae) -> {
             salvar();
         });
+        
         presenter.getView().getBtnFechar().addActionListener((ae) -> {
             cancelar();
         });
@@ -34,14 +37,10 @@ public class EdicaoManterPresenter extends ManterPresenterState {
     @Override
     public void salvar() {
         Contato contato = getDados();
-        validate(contato);
-        //salvar
-        presenter.setState(new EdicaoManterPresenter(presenter, contatoService));
-    }
-    
-    
-    private void validate(Contato contato) {
-        // validar insercao
+        presenter.setCommand(new EditarContatoCommand(contato, new ContatoService()));
+        if(presenter.getCommand().executar()) {
+            presenter.setState(new VisualizacaoManterPresenter(presenter, contato));
+        }
     }
     
 }

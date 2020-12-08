@@ -3,40 +3,59 @@ package com.contatos.revisao.presenter;
 import com.contatos.revisao.model.Contato;
 import com.contatos.revisao.service.ContatoService;
 import com.contatos.revisao.view.ConsultarContatosView;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JDesktopPane;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author clayton
- */
 public class ConsultarContatosPresenter extends BaseInternalFramePresenter<ConsultarContatosView> {
 
     private DefaultTableModel tmContatos;
+    private ContatoService contatoService;
 
     public ConsultarContatosPresenter(JDesktopPane desktop) {
         super(desktop, new ConsultarContatosView());
         ConsultarContatosView view = getView();
+        contatoService = new ContatoService();
 
-        tmContatos = new DefaultTableModel(
-                new Object[][]{},
-                new String[]{"Nome", "Telefone"}
-        );
+        tmContatos = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        
+        tmContatos.setDataVector(new Object[][]{}, new String[]{"Identificador", "Nome", "Telefone"});
 
         view.getTblContatos().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
         tmContatos.setNumRows(0);
-        //ListIterator<Contato> it = contatos.getContatos().listIterator();
-
-        /*while (it.hasNext()) {
-            Contato contato = it.next();
-            tmContatos.addRow(new Object[]{contato.getNome(), contato.getTelefone()});
-        }*/
+        
+        try {
+            List<Contato> contatos = contatoService.getAll();
+            for(Contato contato : contatos) {
+                tmContatos.addRow(new Object[]{ contato.getId(), contato.getNome(), contato.getTelefone() });
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultarContatosPresenter.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         view.getTblContatos().setModel(tmContatos);
-        Contato c = new Contato("Bruno", "28999564397");
+        
         view.getBtnVisualizar().addActionListener((ae) -> {
-            new ManterContatoPresenter(c, new ContatoService(), desktop);
+            int linhaSelecionada = view.getTblContatos().getSelectedRow();
+            if (linhaSelecionada >= 0) {
+                Contato contato = new Contato();
+                
+                contato.setId((Long) tmContatos.getValueAt(linhaSelecionada, 0));
+                
+                new ManterContatoPresenter(contato, desktop);
+            } else {
+                JOptionPane.showMessageDialog(null, "É necessário selecionar um contato", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            }
         });
 
         view.getBtnFechar().addActionListener((ae) -> {
@@ -44,7 +63,6 @@ public class ConsultarContatosPresenter extends BaseInternalFramePresenter<Consu
         });
 
         view.setVisible(true);
-
     }
 
     private void fechar() {

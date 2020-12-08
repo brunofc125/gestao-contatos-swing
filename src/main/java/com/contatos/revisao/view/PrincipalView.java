@@ -95,7 +95,7 @@ public class PrincipalView extends JFrame {
 
     private void itemIncluirContatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemIncluirContatosActionPerformed
 
-        new ManterContatoPresenter(new ContatoService(), getDesktop());
+        new ManterContatoPresenter(getDesktop());
 
     }//GEN-LAST:event_itemIncluirContatosActionPerformed
 
